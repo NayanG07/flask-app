@@ -1,0 +1,28 @@
+name: Docker-Build-Push
+
+on:
+    push:
+        branches: [main]
+    workflow_dispatch:
+        
+jobs:
+    build-and-push:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v6
+
+            - name: Log in to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                username: ${{ vars.DOCKERHUB_USER}}
+                password: ${{ secrets.DOCKERHUB_PASS }}
+
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v6
+              with:
+                push: true
+                tags: ${{vars.DOCKERHUB_USER}}/flask-app:latest
+                      ${{vars.DOCKERHUB_USER}}/flask-app:${{ github.sha }}
+                    
