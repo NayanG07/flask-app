@@ -23,6 +23,7 @@ jobs:
               uses: docker/build-push-action@v6
               with:
                 push: true
-                tags: ${{vars.DOCKERHUB_USER}}/flask-app:latest
+                tags: |
+                      ${{vars.DOCKERHUB_USER}}/flask-app:latest
                       ${{vars.DOCKERHUB_USER}}/flask-app:${{ github.sha }}
                     
