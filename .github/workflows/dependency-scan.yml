@@ -1,0 +1,25 @@
+# pacages issue or vulnerabilities scan workflow using pip-audit
+
+name: Dependency Scan
+
+on:
+    workflow_call:
+
+jobs:
+    dependency-check:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: action/checkout@v6 
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.13"
+
+            - name: install Pip-Audit
+              run: pip install pip-audit
+
+            - name: Pip Dependency Scan
+              run: pip-audit -r requrements.txt
