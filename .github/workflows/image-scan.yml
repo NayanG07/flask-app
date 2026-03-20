@@ -2,6 +2,9 @@
 
 name: Image Scanner
 
+on:
+    workflow_call:
+
 jobs:
     image-scanner:
         runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
                 password: ${{ secrets.DOCKERHUB_PASS }}
 
             - name: Scan Docker Image with Trivy
-              uses: aquasecurity/trivy-action@v0.33.1
+              uses: aquasecurity/trivy-action@0.33.1
               with:
                 severity: 'CRITICAL'
                 exit-code: '1'
